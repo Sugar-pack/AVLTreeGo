@@ -24,7 +24,6 @@ func (t *AVLTree) Append(value V) {
 	} else if value < t.root.value {
 		t.root.left.Append(value)
 	}
-	t.UpdateHeight()
 	t.FixBalance()
 }
 
@@ -80,18 +79,19 @@ func (t *AVLTree) UpdateBFactor() {
 		rightHeight := 0
 		if t.root.left != nil {
 			t.root.left.UpdateBFactor()
-			leftHeight = t.root.left.BFactor
+			leftHeight = t.root.left.Height
 		}
 		if t.root != nil {
 			t.root.right.UpdateBFactor()
-			rightHeight = t.root.right.BFactor
+			rightHeight = t.root.right.Height
 		}
 		t.BFactor = rightHeight - leftHeight
+		return
 	}
 	t.BFactor = 0
 }
 
-func (t *AVLTree) RotateRight() {
+func (t *AVLTree) RotateLeft() {
 	top := t.root
 	mid := t.root.left.root
 	bottom := mid.right.root
@@ -101,7 +101,7 @@ func (t *AVLTree) RotateRight() {
 	top.left.root = bottom
 }
 
-func (t *AVLTree) RotateLeft() {
+func (t *AVLTree) RotateRight() {
 	top := t.root
 	mid := t.root.right.root
 	bottom := mid.left.root
