@@ -6,6 +6,11 @@ import (
 )
 
 func TestAVLTree_Append(t *testing.T) {
-	avlTree := NewAVLTree(1, 2, 3, 4)
-	assert.Equal(t, V(2), avlTree.root.value)
+	avlTree := NewAVLTree(1)
+	assert.Equal(t, V(1), avlTree.root.value)
+	assert.Equal(t, 0, avlTree.BFactor)
+	assert.Equal(t, 1, avlTree.Height)
+
+	avlTree.Append(2)
+
 }

@@ -20,9 +20,9 @@ func (t *AVLTree) Append(value V) {
 		t.root.left = &AVLTree{}
 		t.root.right = &AVLTree{}
 	} else if value > t.root.value {
-		t.root.left.Append(value)
-	} else {
 		t.root.right.Append(value)
+	} else if value < t.root.value {
+		t.root.left.Append(value)
 	}
 	t.UpdateHeight()
 	t.FixBalance()
@@ -41,6 +41,7 @@ func (t *AVLTree) UpdateHeight() { //CP
 			rightHeight = t.root.right.Height
 		}
 		t.Height = max(leftHeight, rightHeight) + 1
+		return
 	}
 	t.Height = 0
 }
